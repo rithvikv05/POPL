@@ -35,7 +35,7 @@
                (let* ((with-left (walk (cadr node) acc))
                       (with-right (walk (caddr node) with-left)))
                  (lambda (tail)
-                   (with-right (cons (car node) tail)))))))
+                   (with-right (cons (car node) tail))))))))
     (build '())))
 
 (define (tree-height tree)

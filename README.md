@@ -26,3 +26,17 @@
 
 #### P2 Tests
 > swipl -q -s .\test\id_q2_tests.pl -g run_tests -t halt
+
+## S1: Commands
+
+> racket .\code\19_q3.rkt
+
+> Get-Content .\code\19_q3.rkt | Set-Content .\tests\q3_run.rkt
+
+> Get-Content .\tests\19_test_q3.rkt |
+    Select-Object -Skip 1 |
+    Add-Content .\tests\q3_run.rkt
+
+> Add-Content .\tests\q3_run.rkt "`n(run-q3-tests)"
+
+> racket .\tests\q3_run.rkt
