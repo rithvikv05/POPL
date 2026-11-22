@@ -19,25 +19,6 @@
         (loop (cdr remaining)
               (cons (f (car remaining)) result)))))
 
-(define (insert-if-short x lst n)
-  (let ((original-length (my-length lst)))
-    (let ((processed
-           (my-map (lambda (element)
-                     (if (or (null? element) (pair? element))
-                         (insert-if-short x element n)
-                         element))
-                   lst)))
-      (if (< original-length n)
-          (cons x processed)
-          processed))))
-
-(define (print-insert-result)
-  (let* ((x (read))
-         (lst (read))
-         (n (read)))
-    (display (insert-if-short x lst n))
-    (newline)))
-
 (define (make-inserter x len-ok?)
   (letrec ((insert
             (lambda (lst)
@@ -56,3 +37,9 @@
 (define (insert-if-short x lst n)
   ((make-inserter x (lambda (len) (< len n))) lst))
 
+(define (print-insert-result)
+  (let* ((x (read))
+         (lst (read))
+         (n (read)))
+    (display (insert-if-short x lst n))
+    (newline)))
