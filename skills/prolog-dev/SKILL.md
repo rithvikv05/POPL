@@ -1,7 +1,6 @@
 ---
 name: prolog-dev
-description: Guidelines for developing and testing Prolog solutions
-for CS F301 Assignment 2 using SWI-Prolog 9.x.
+description: Guidelines for developing and testing Prolog solutions for CS F301 Assignment 2 using SWI-Prolog 9.x.
 ---
 
 # Prolog Development Guidelines

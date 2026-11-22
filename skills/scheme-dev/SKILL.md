@@ -1,7 +1,6 @@
 ---
 name: scheme-dev
-description: Guidelines for developing and testing Scheme solutions
-for CS F301 Assignment 2 using Racket 8.x.
+description: Guidelines for developing and testing Scheme solutions for CS F301 Assignment 2 using Racket 8.x.
 ---
 
 # Scheme Development Guidelines
