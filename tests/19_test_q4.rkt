@@ -7,6 +7,7 @@
          (and (pair? b)
               (same? (car a) (car b))
               (same? (cdr a) (cdr b))))
+        ((or (null? b) (pair? b)) #f)
         (else (eq? a b))))
 
 ;; Print one result and return #t on success, #f on failure.
@@ -80,8 +81,40 @@
          (t9
           (check 'flat-10000
                  (insert-if-short 'z (make-flat-input) 10001)
-                 (cons 'z (make-flat-input)))))
-    (if (and t1 t2 t3 t4 t5 t6 t7 t8 t9)
+                 (cons 'z (make-flat-input))))
+         (t10 (check 'threshold-zero-preserves-every-level
+                     (insert-if-short 'z '(() (a ()) ((b))) 0)
+                     '(() (a ()) ((b)))))
+         (t11 (check 'only-empty-lists-at-threshold-one
+                     (insert-if-short 'z '(() (a ()) ((b))) 1)
+                     '((z) (a (z)) ((b)))))
+         (t12 (check 'every-level-and-original-length
+                     (insert-if-short 'z '((a) ()) 3)
+                     '(z (z a) (z))))
+         (t13 (check 'custom-predicate-always-true
+                     ((make-inserter 'z (lambda (k) #t)) '(() (a)))
+                     '(z (z) (z a))))
+         (t14 (check 'custom-predicate-always-false
+                     ((make-inserter 'z (lambda (k) #f)) '(() (a)))
+                     '(() (a))))
+         (t15 (check 'custom-predicate-only-empty
+                     ((make-inserter 'z (lambda (k) (= k 0))) '(() (a ())))
+                     '((z) (a (z)))))
+         (t16 (check 'flat-10000-at-exact-threshold
+                     (insert-if-short 'z (make-flat-input) 10000)
+                     (make-flat-input)))
+         (t17 (check 'empty-helper-length (my-length '()) 0))
+         (t18 (check 'length-counts-top-level-elements
+                     (my-length '((a b) () c)) 3))
+         (t19 (check 'my-map-empty (my-map (lambda (x) (+ x 1)) '()) '()))
+         (t20 (check 'my-map-order (my-map (lambda (x) (+ x 1)) '(1 2 3)) '(2 3 4)))
+         (t21 (check 'same-inserted-atom-is-preserved
+                     (insert-if-short 'z '(z (z) ()) 4)
+                     '(z z (z z) (z))))
+         (t22 (check 'combined-width-and-depth
+                     (insert-if-short 'z (list (make-flat-input) (make-deep-input) '()) 2)
+                     (list (make-flat-input) (make-deep-expected) '(z)))))
+    (if (and t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 t17 t18 t19 t20 t21 t22)
         (begin
           (display 'ALL-TESTS-PASSED)
           (newline))
